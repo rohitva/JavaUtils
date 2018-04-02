@@ -1,4 +1,4 @@
-package retry;
+package retry.strategy;
 
 
 import java.util.Set;
@@ -21,6 +21,10 @@ public interface RetryStrategy {
       * @return
       */
      default boolean shouldIgnoreException(Set<Class<? extends Throwable>> retryOnExceptions, Throwable exceptionThrown){
+          if(retryOnExceptions == null){
+               return false;
+          }
+
           for(Class<? extends Throwable> throwable : retryOnExceptions){
                if(throwable.isAssignableFrom(exceptionThrown.getClass())){
                     return true;

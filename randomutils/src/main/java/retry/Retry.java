@@ -5,6 +5,8 @@ import com.google.common.base.Throwables;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
+import retry.strategy.RetryStrategy;
+import retry.helper.SleepHelper;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -14,7 +16,8 @@ import java.util.function.Supplier;
 @Builder
 public class Retry<T> {
     RetryStrategy retryStrategy;
-    @Builder.Default SleepHelper sleepHelper = new SleepHelper();
+    @Builder.Default
+    SleepHelper sleepHelper = new SleepHelper();
 
     public T run(Supplier<T> method) {
         try {
@@ -24,7 +27,7 @@ public class Retry<T> {
         }
     }
 
-    public T reTry(Supplier<T> method, Exception exception) {
+    private T reTry(Supplier<T> method, Exception exception) {
         int retryCounter = 1;
         Exception exceptionThrown = exception;
         while(true){

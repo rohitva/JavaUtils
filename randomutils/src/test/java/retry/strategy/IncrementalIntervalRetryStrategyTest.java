@@ -1,14 +1,13 @@
-package retry;
+package retry.strategy;
 
 import com.google.common.collect.ImmutableSet;
 import org.junit.Assert;
 import org.junit.Test;
-
 public class IncrementalIntervalRetryStrategyTest {
 
     @Test
     public void testDefaultStrategy(){
-        IncrementalIntervalRetryStrategy incrementalIntervalRetryStrategy = IncrementalIntervalRetryStrategy.builder().build();
+       IncrementalIntervalRetryStrategy incrementalIntervalRetryStrategy = IncrementalIntervalRetryStrategy.builder().build();
 
         //Verify wait time changes with attempt counter. Also it has an upper bound.
         Assert.assertEquals(incrementalIntervalRetryStrategy.getWaitTime(1),
@@ -62,12 +61,12 @@ public class IncrementalIntervalRetryStrategyTest {
     @Test
     public void testStrategyIgnoreExceptionHierarchy(){
         //Ignore same exceptions.
-        Assert.assertTrue( IncrementalIntervalRetryStrategy.builder()
+        Assert.assertTrue(IncrementalIntervalRetryStrategy.builder()
                 .retryOnExceptions(ImmutableSet.of(RuntimeException.class))
                 .build().shouldRetry(1, new RuntimeException()));
 
         //Retry exception if you have whitelisted base class
-        Assert.assertTrue( IncrementalIntervalRetryStrategy.builder()
+        Assert.assertTrue(IncrementalIntervalRetryStrategy.builder()
                 .retryOnExceptions(ImmutableSet.of(Exception.class))
                 .build().shouldRetry(2, new RuntimeException()));
         Assert.assertTrue( FixedIntervalRetryStrategy.builder()
@@ -76,10 +75,10 @@ public class IncrementalIntervalRetryStrategyTest {
 
 
         //Doesn't retry if you have whitelisted only extended class
-        Assert.assertFalse( IncrementalIntervalRetryStrategy.builder()
+        Assert.assertFalse(IncrementalIntervalRetryStrategy.builder()
                 .retryOnExceptions(ImmutableSet.of(RuntimeException.class))
                 .build().shouldRetry(3, new Exception()));
-        Assert.assertFalse( IncrementalIntervalRetryStrategy.builder()
+        Assert.assertFalse(IncrementalIntervalRetryStrategy.builder()
                 .retryOnExceptions(ImmutableSet.of(Exception.class))
                 .build().shouldRetry(3, new Throwable()));
     }

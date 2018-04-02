@@ -1,12 +1,9 @@
-package retry;
+package retry.strategy;
 
 import lombok.Builder;
-import lombok.Getter;
-
 import java.util.Set;
 
 @Builder
-@Getter
 public class FixedIntervalRetryStrategy implements RetryStrategy {
     @Builder.Default int totalRetryCount = RetryStrategyDefaults.DEFAULT_RETRY_COUNT;
     @Builder.Default long retryInterval = RetryStrategyDefaults.DEFAULT_SLEEP_INTERVAL;

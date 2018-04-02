@@ -1,4 +1,4 @@
-package retry;
+package retry.helper;
 
 
 import com.google.common.util.concurrent.Uninterruptibles;

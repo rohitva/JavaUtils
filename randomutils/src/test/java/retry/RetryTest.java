@@ -4,6 +4,9 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.junit.Assert;
+import retry.strategy.ExponentialBackoffWithEqualJitterStrategy;
+import retry.strategy.FixedIntervalRetryStrategy;
+import retry.strategy.IncrementalIntervalRetryStrategy;
 
 /**
  * TODO : Add tests to verify how long we sleep between retry attempts.

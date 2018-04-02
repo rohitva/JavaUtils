@@ -1,4 +1,4 @@
-package retry;
+package retry.strategy;
 
 import java.util.HashSet;
 import java.util.Set;
