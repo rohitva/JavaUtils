@@ -119,14 +119,14 @@ public class ExponentialBackoffWithEqualJitterStrategyTest {
 
         @Test
         public void testRetryWithFixedIntervalPolicySuccessFirstTime(){
-            Retry<String> retryHelper = Retry.<String>builder().retryStrategy(FixedIntervalRetryStrategy.builder().build()).build();
+            Retry<String> retryHelper = Retry.<String>builder(FixedIntervalRetryStrategy.builder().build()).build();
             Mockito.when(testClass.testMe()).thenReturn("testMe");
             Assert.assertEquals("testMe", retryHelper.run(() -> testClass.testMe()));
         }
 
         @Test
         public void testRetryWithFixedIntervalPolicySuccessKeepFailing() {
-            Retry<String> retryHelper = Retry.<String>builder().retryStrategy(FixedIntervalRetryStrategy.builder()
+            Retry<String> retryHelper = Retry.<String>builder(FixedIntervalRetryStrategy.builder()
                     .retryOnAllExceptions(true)
                     .retryInterval(1).build()).build();
             Mockito.when(testClass.testMe()).thenThrow(new RuntimeException("boom boom"));
@@ -136,7 +136,7 @@ public class ExponentialBackoffWithEqualJitterStrategyTest {
 
         @Test
         public void testRetryWithFixedIntervalPolicyFailTwoTimesAndSuccessfull() {
-            Retry<String> retryHelper = Retry.<String>builder().retryStrategy(FixedIntervalRetryStrategy.builder()
+            Retry<String> retryHelper = Retry.<String>builder(FixedIntervalRetryStrategy.builder()
                     .retryInterval(1).retryOnAllExceptions(true).build()).build();
             Mockito.when(testClass.testMe()).thenThrow(new RuntimeException("boom boom"))
                     .thenThrow(new RuntimeException("Boom again"))
@@ -148,14 +148,14 @@ public class ExponentialBackoffWithEqualJitterStrategyTest {
 
         @Test
         public void testRetryWithIncrementalIntervalPolicySuccessFirstTime(){
-            Retry<String> retryHelper = Retry.<String>builder().retryStrategy(IncrementalIntervalRetryStrategy.builder().build()).build();
+            Retry<String> retryHelper = Retry.<String>builder(IncrementalIntervalRetryStrategy.builder().build()).build();
             Mockito.when(testClass.testMe()).thenReturn("testMe");
             Assert.assertEquals("testMe", retryHelper.run(() -> testClass.testMe()));
         }
 
         @Test
         public void testRetryWithIncrementalIntervalPolicySuccessKeepFailing() {
-            Retry<String> retryHelper = Retry.<String>builder().retryStrategy(IncrementalIntervalRetryStrategy.builder()
+            Retry<String> retryHelper = Retry.<String>builder(IncrementalIntervalRetryStrategy.builder()
                     .retryOnAllExceptions(true)
                     .initialInterval(1).retryIntervalIncrement(1).build()).build();
             Mockito.when(testClass.testMe()).thenThrow(new RuntimeException("boom boom"));
@@ -165,7 +165,7 @@ public class ExponentialBackoffWithEqualJitterStrategyTest {
 
         @Test
         public void testRetryWithIncrementalIntervalPolicyFailTwoTimesAndSuccessfull() {
-            Retry<String> retryHelper = Retry.<String>builder().retryStrategy(IncrementalIntervalRetryStrategy.builder()
+            Retry<String> retryHelper = Retry.<String>builder(IncrementalIntervalRetryStrategy.builder()
                     .initialInterval(1).retryIntervalIncrement(1).retryOnAllExceptions(true).build()).build();
             Mockito.when(testClass.testMe()).thenThrow(new RuntimeException("boom boom"))
                     .thenThrow(new RuntimeException("Boom again"))
@@ -177,14 +177,14 @@ public class ExponentialBackoffWithEqualJitterStrategyTest {
 
         @Test
         public void testRetryWithExponentialPolicySuccessFirstTime(){
-            Retry<String> retryHelper = Retry.<String>builder().retryStrategy(ExponentialBackoffWithEqualJitterStrategy.builder().build()).build();
+            Retry<String> retryHelper = Retry.<String>builder(ExponentialBackoffWithEqualJitterStrategy.builder().build()).build();
             Mockito.when(testClass.testMe()).thenReturn("testMe");
             Assert.assertEquals("testMe", retryHelper.run(() -> testClass.testMe()));
         }
 
         @Test
         public void testRetryWithExponentialPolicySuccessKeepFailing() {
-            Retry<String> retryHelper = Retry.<String>builder().retryStrategy(ExponentialBackoffWithEqualJitterStrategy.builder()
+            Retry<String> retryHelper = Retry.<String>builder(ExponentialBackoffWithEqualJitterStrategy.builder()
                     .retryOnAllExceptions(true)
                     .initialInterval(1).build()).build();
             Mockito.when(testClass.testMe()).thenThrow(new RuntimeException("boom boom"));
@@ -194,7 +194,7 @@ public class ExponentialBackoffWithEqualJitterStrategyTest {
 
         @Test
         public void testRetryWithExponentialPolicyFailTwoTimesAndSuccessfull() {
-            Retry<String> retryHelper = Retry.<String>builder().retryStrategy(ExponentialBackoffWithEqualJitterStrategy.builder()
+            Retry<String> retryHelper = Retry.<String>builder(ExponentialBackoffWithEqualJitterStrategy.builder()
                     .initialInterval(1).retryOnAllExceptions(true).build()).build();
             Mockito.when(testClass.testMe()).thenThrow(new RuntimeException("boom boom"))
                     .thenThrow(new RuntimeException("Boom again"))
@@ -204,7 +204,7 @@ public class ExponentialBackoffWithEqualJitterStrategyTest {
 
         @Test
         public void testDefineNewStrategy(){
-            Retry<String> retryHelper = Retry.<String>builder().retryStrategy(new RetryStrategy() {
+            Retry<String> retryHelper = Retry.<String>builder(new RetryStrategy() {
                 @Override
                 public long getWaitTime(int retryCounter) {
                     return 0;

@@ -2,7 +2,6 @@ package retry.strategy;
 
 import lombok.Builder;
 import lombok.Getter;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,7 +15,6 @@ public class IncrementalIntervalRetryStrategy implements RetryStrategy {
     Set<Class<? extends Throwable>> retryOnExceptions = new HashSet<>();
     @Builder.Default long retryIntervalIncrement = 100;
     @Builder.Default long maxInterval = 10000;
-
 
     @Override
     public long getWaitTime(int retryCounter) {

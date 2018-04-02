@@ -1,6 +1,8 @@
 package retry.strategy;
 
 import lombok.Builder;
+import lombok.NonNull;
+
 import java.util.Random;
 import java.util.Set;
 
@@ -38,5 +40,4 @@ public class ExponentialBackoffWithEqualJitterStrategy implements RetryStrategy 
     public Set<Class<? extends Throwable>> getRetryOnExceptions() {
         return retryOnExceptions;
     }
-
 }

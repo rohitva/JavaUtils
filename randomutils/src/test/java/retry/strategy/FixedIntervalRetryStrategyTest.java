@@ -3,8 +3,6 @@ package retry.strategy;
 import com.google.common.collect.ImmutableSet;
 import org.junit.Test;
 import org.junit.Assert;
-import retry.strategy.ExponentialBackoffWithEqualJitterStrategy;
-import retry.strategy.FixedIntervalRetryStrategy;
 
 public class FixedIntervalRetryStrategyTest {
 
