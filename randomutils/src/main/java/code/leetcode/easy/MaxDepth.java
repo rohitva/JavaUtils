@@ -1,6 +1,6 @@
 package code.leetcode.easy;
 
-import code.leetcode.easy.type.TreeNode;
+import code.leetcode.type.TreeNode;
 
 /**
  * https://leetcode.com/problems/maximum-depth-of-binary-tree/

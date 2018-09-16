@@ -1,4 +1,4 @@
-package code.leetcode.easy.type;
+package code.leetcode.type;
 
 
 public class TreeNode {
