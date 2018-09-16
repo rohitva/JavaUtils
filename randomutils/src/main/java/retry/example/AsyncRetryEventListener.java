@@ -26,8 +26,7 @@ public class AsyncRetryEventListener implements RetryEventListener<RetryEvent> {
     public void doOnSuccessfulEvent(RetryEvent eventObject) {
         // An Async task always executes in new thread
         new Thread(new Runnable() {
-            public void run()
-            {
+            public void run() {
                 AsyncRetryEventListener.log.info("Call {} is successful in the retryAttempt {}", methodName, eventObject.getRetryAttemptCount());
                 //We can even add Metrics over here.
             }
@@ -40,8 +39,7 @@ public class AsyncRetryEventListener implements RetryEventListener<RetryEvent> {
     public void doOnFailedEvent(RetryEvent eventObject) {
         // An Async task always executes in new thread
         new Thread(new Runnable() {
-            public void run()
-            {
+            public void run() {
                 AsyncRetryEventListener.log.info("Call {} failed in the retryAttempt {}", methodName, eventObject.getRetryAttemptCount(), eventObject.getLastException());
                 //We can even add Metrics over here.
             }

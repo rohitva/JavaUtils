@@ -6,11 +6,11 @@ import lombok.Builder;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.Validate;
+import retry.helper.SleepHelper;
 import retry.listener.NoOpEventListner;
 import retry.listener.RetryEventContext;
 import retry.listener.RetryEventListener;
 import retry.strategy.RetryStrategy;
-import retry.helper.SleepHelper;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,8 +20,9 @@ import java.util.function.Supplier;
 @AllArgsConstructor
 @Slf4j
 @Builder(builderMethodName = "_builder")
-public class Retry<T> implements RetryInterface<T>{
-    @NonNull RetryStrategy retryStrategy;
+public class Retry<T> implements RetryInterface<T> {
+    @NonNull
+    RetryStrategy retryStrategy;
     @Builder.Default
     SleepHelper sleepHelper = new SleepHelper();
     @Builder.Default
@@ -51,14 +52,14 @@ public class Retry<T> implements RetryInterface<T>{
         Set<Throwable> allException = new HashSet<>();
         allException.add(exception);
 
-        while(true){
-            if(retryStrategy.shouldRetry(retryCounter, exceptionThrown)){
+        while (true) {
+            if (retryStrategy.shouldRetry(retryCounter, exceptionThrown)) {
                 sleepHelper.sleepUninterruptibly(retryStrategy.getWaitTime(retryCounter), TimeUnit.MILLISECONDS);
                 try {
                     T output = method.get();
                     retryEventListener.doOnSuccessfulEvent(RetryEventContext.builder().retryAttemptCount(retryCounter).allExceptions(allException).build());
                     return output;
-                } catch (Throwable newException){
+                } catch (Throwable newException) {
                     allException.add(newException);
                     retryEventListener.doOnFailedEvent(RetryEventContext.builder().retryAttemptCount(0).lastException(newException).allExceptions(allException).build());
                     exceptionThrown = newException;

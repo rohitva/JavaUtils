@@ -13,7 +13,8 @@ import retry.listener.RetryEventListener;
 @Slf4j
 @Builder(builderMethodName = "_builder") //
 public class SynRetryEventListener implements RetryEventListener<RetryEvent> {
-    @NonNull String methodName;
+    @NonNull
+    String methodName;
 
     public static SynRetryEventListenerBuilder builder(@NonNull final String methodName) {
         Validate.notEmpty(methodName);

@@ -5,16 +5,16 @@ import java.util.List;
 
 /**
  * https://leetcode.com/problems/generate-parentheses
- *  Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
- *
+ * Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+ * <p>
  * For example, given n = 3, a solution set is:
- *
+ * <p>
  * [
- *   "((()))",
- *   "(()())",
- *   "(())()",
- *   "()(())",
- *   "()()()"
+ * "((()))",
+ * "(()())",
+ * "(())()",
+ * "()(())",
+ * "()()()"
  * ]
  */
 public class GenerateParenthesis {
@@ -38,9 +38,9 @@ public class GenerateParenthesis {
             output.add(new String(str));
             return;
         }
-        if(leftCount ==n){
+        if (leftCount == n) {
             str[currentIndex] = ')';
-            generateParenthesis(n, str, leftCount, rightCount+1, currentIndex + 1, output);
+            generateParenthesis(n, str, leftCount, rightCount + 1, currentIndex + 1, output);
             return;
         }
         if (leftCount == rightCount) {

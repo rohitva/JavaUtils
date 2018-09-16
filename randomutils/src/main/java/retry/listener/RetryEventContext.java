@@ -1,10 +1,11 @@
 package retry.listener;
 
 import lombok.Builder;
+
 import java.util.Set;
 
 @Builder
-public class RetryEventContext implements RetryEvent{
+public class RetryEventContext implements RetryEvent {
     int retryAttemptCount;
     Throwable lastException;
     Set<Throwable> allExceptions;
