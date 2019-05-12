@@ -44,7 +44,6 @@ public class GroupAnagrams {
             }
             map.get(key).add(strs[i]);
         }
-
         for (Map.Entry<String, List<String>> entry : map.entrySet()) {
             output.add(entry.getValue());
         }

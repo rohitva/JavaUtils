@@ -1,6 +1,9 @@
 package code.leetcode.type;
 
 
+import lombok.ToString;
+
+@ToString
 public class TreeNode {
     public int val;
     public TreeNode left;
